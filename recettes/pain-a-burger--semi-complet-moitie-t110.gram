@@ -4,31 +4,31 @@ date: 2026-10-07
 variante_de: pain-a-burger
 variante: "semi-complet (moitié T110)"
 statut: essai    # essai, retenue ou ecartee
-objectif: "Des buns semi-complets : la moitié de la farine remplacée par de la T110, avec une autolyse et plus de liquide"    # ce que vous cherchez à tester
+objectif: "Des buns semi-complets : la moitié de la farine remplacée par de la T110, avec une autolyse"    # ce que vous cherchez à tester
 verdict: ""    # après dégustation : ce que ça a donné
 category: 'Pains'
 tags: ['pain', 'burger', 'boulange']
-makes: '10 buns'
+makes: '3 buns'
 ---
 
 
 ## Pâte ->&pâte{}
 
-[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{300 g}, la @farine T110{300 g}, le @lait demi-écrémé{250 g}(tiède, environ 25 °C) et l'@eau{165 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son se ramollit et abîme moins le réseau de gluten.
+[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{100 g}, la @farine T110{100 g} et le @lait demi-écrémé{120 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son se ramollit et abîme moins le réseau de gluten.
 
-[Pétrir] Émietter la @levure boulangère fraîche{20 g} sur la pâte, ajouter le @sucre{30 g} et le @sel fin{12 g} (sans mettre le sel au contact direct de la levure). Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à ce que la pâte soit lisse et élastique.
+[Pétrir] Émietter la @levure boulangère fraîche{7 g} sur la pâte, ajouter le @sucre{10 g} et le @sel fin{4 g} (sans mettre le sel au contact direct de la levure). Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à ce que la pâte soit lisse et élastique.
 
-[Beurrer] Ajouter petit à petit le @beurre doux{60 g}(bien ramolli, en dés) en continuant de pétrir ~{5-8min}, jusqu'à ce que la pâte l'absorbe, se décolle des parois et passe le test de la membrane (elle s'étire finement sans se déchirer tout de suite).
+[Beurrer] Ajouter petit à petit le @beurre doux{20 g}(bien ramolli, en dés) en continuant de pétrir ~{5-8min}, jusqu'à ce que la pâte l'absorbe, se décolle des parois et passe le test de la membrane (elle s'étire finement sans se déchirer tout de suite).
 
 [Pointer] Former une boule, la mettre dans un #saladier{}, couvrir et laisser doubler de volume à température ambiante ~_pointage{60min}.
 
 ## Façonnage et cuisson
 
-[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 10 pâtons d'environ 110 g. Rouler chaque pâton en boule serrée, puis les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et les aplatir à la paume jusqu'à environ 9 cm.
+[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 3 pâtons d'environ 120 g. Rouler chaque pâton en boule serrée, puis les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et les aplatir à la paume jusqu'à environ 9 cm.
 
 [Apprêter] Couvrir et laisser lever ~_apprêt{45-60min}, jusqu'à ce que les buns aient presque doublé de volume.
 
-[Dorer] Préchauffer le #four à ^four{180 °C}. Badigeonner les buns de @jaune d'œuf{1}(battu) allongé d'un peu de @&lait demi-écrémé{15 g}, puis parsemer, si vous aimez, de @?graines de sésame{1 c.à.s}.
+[Dorer] Préchauffer le #four à ^four{180 °C}. Badigeonner les buns de @jaune d'œuf{1}(battu) allongé d'un peu de @&lait demi-écrémé{10 g}, puis parsemer, si vous aimez, de @?graines de sésame{1 c.à.s}.
 
 [Cuire] Enfourner ~_four{15-18min}, jusqu'à ce que les buns soient bien dorés.
 
