@@ -1,0 +1,41 @@
+---
+title: "Burger BBQ joue de porc — teriyaki"
+date: 2026-10-07
+variante_de: burger-bbq-joue-de-porc
+variante: "teriyaki"
+statut: essai    # essai, retenue ou ecartee
+objectif: "Version salé-sucré : joues braisées au soja, miel et gingembre, bao bun"    # ce que vous cherchez à tester
+verdict: ""    # après dégustation : ce que ça a donné
+category: 'Plats'
+tags: ['burger', 'porc', 'barbecue']
+portions: 4
+makes: '4 burgers'
+---
+
+## Joues de porc braisées
+
+[Saisir] Dans une #cocotte{}, faire chauffer l'@huile{1 c.à.s} sur ^{feu vif} et y saisir les @joues de porc{800 g} ~{10 min}, jusqu'à ce qu'elles soient bien colorées.
+
+[Mouiller] Ajouter l'@ail{3 gousses}(écrasées) et le @gingembre frais{20 g}(râpé), puis mouiller à hauteur avec le @bouillon de volaille{40 cl}, la @sauce soja{8 cl}, le @miel{3 c.à.s} et le @vinaigre de riz{4 c.à.s}.
+
+[Braiser] Couvrir et cuire au #four à ^four{140 °C} ~_braisage{180-240min}, jusqu'à ce que les joues s'effilochent à la fourchette.
+
+[Effilocher] Retirer les joues et les effilocher légèrement à la #fourchette{}. Faire réduire le jus de cuisson à feu vif ~{15 min}, jusqu'à obtenir une glace teriyaki sirupeuse.
+
+[Enrober] Réincorporer la viande dans la glace réduite. ->&porc effiloché{}
+
+## Concombre mariné
+
+[Mariner] Dans un #bol{}, mélanger le @concombre{1}(en fines rondelles) et le @vinaigre de riz{4 c.à.s}. Laisser mariner ~_pickles{30 min}. ->&concombre mariné{}
+
+## Sauce
+
+[Mélanger] Mélanger la @mayonnaise{4 c.à.s} avec la @sriracha{1 c.à.c}|@wasabi{1/2 c.à.c}. ->&mayonnaise piquante{}
+
+## Montage
+
+[Chauffer] Réchauffer les @bao buns{4}|@brioche buns au sésame{4} à la vapeur, ou les toaster à la #poêle{} ~{3 min}.
+
+[Garnir] Tartiner les buns de &mayonnaise piquante{}, puis déposer le &porc effiloché{} bien chaud. Ajouter, si vous en voulez, du @?gouda jeune{4 tranches}|@?provolone{4 tranches}.
+
+[Terminer] Ajouter le &concombre mariné{}, la @coriandre fraîche{1 bouquet}, les @graines de sésame{1 c.à.s}(torréfiées) et les @oignons frits{4 c.à.s}, puis refermer les burgers.

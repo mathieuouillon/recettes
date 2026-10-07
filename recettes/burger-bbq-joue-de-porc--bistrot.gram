@@ -1,0 +1,39 @@
+---
+title: "Burger BBQ joue de porc — bistrot"
+date: 2026-10-07
+variante_de: burger-bbq-joue-de-porc
+variante: "bistrot"
+statut: essai    # essai, retenue ou ecartee
+objectif: "Version réconfortante : joues braisées au cidre, reblochon, compotée d'oignons"    # ce que vous cherchez à tester
+verdict: ""    # après dégustation : ce que ça a donné
+category: 'Plats'
+tags: ['burger', 'porc', 'barbecue']
+portions: 4
+makes: '4 burgers'
+---
+
+## Joues de porc braisées
+
+[Saisir] Dans une #cocotte{}, faire chauffer l'@huile{1 c.à.s} sur ^{feu vif} et y saisir les @joues de porc{800 g} ~{10 min}, jusqu'à ce qu'elles soient bien colorées. Saler et poivrer avec le @=sel{} et le @poivre{}.
+
+[Mouiller] Ajouter les @carottes{2}(en rondelles) et les @échalotes{4}(émincées), puis mouiller à hauteur avec le @bouillon de volaille{30 cl} et le @cidre brut{30 cl}. // à la bière brune si vous préférez
+
+[Braiser] Couvrir et cuire au #four à ^four{140 °C} ~_braisage{180-240min}, jusqu'à ce que les joues soient très tendres.
+
+[Effilocher] Retirer les joues et les couper en gros morceaux, ou les effilocher légèrement à la #fourchette{}. ->&porc braisé{}
+
+## Sauce au jus
+
+[Réduire] Faire réduire le jus de cuisson à feu vif ~{15 min}, puis le lier avec la @crème fraîche{5 cl}|@moutarde de Dijon{1 c.à.s}. ->&sauce au jus{}
+
+## Échalotes et oignons
+
+[Confire] Faire confire les @&échalotes{4}(émincées) dans un peu de jus de cuisson ~{15 min}. ->&échalotes confites{}
+
+[Compoter] Dans une #poêle{}, faire fondre les @oignons{2}(émincés) dans le @beurre{20 g}, puis ajouter le @&cidre brut{10 cl} et laisser compoter ~{20 min}. ->&compotée d'oignons{}
+
+## Montage
+
+[Garnir] Couper les @buns briochés maison{4} en deux, tartiner de &sauce au jus{}, puis déposer le &porc braisé{} chaud. Couvrir de @reblochon{4 tranches}|@comté fruité{4 tranches}|@maroilles{4 tranches} et laisser fondre ~{1 min} au #&four.
+
+[Terminer] Ajouter les &échalotes confites{}, la &compotée d'oignons{} et la @roquette{1 poignée}, puis refermer les burgers.
