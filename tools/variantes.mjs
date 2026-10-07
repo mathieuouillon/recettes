@@ -582,34 +582,49 @@ export function blocVersions({ racine, variantes, courant, idTitre }) {
     return `<th scope="col"${estCourante(v) ? ' class="courant"' : ''}>${contenu}${statut}</th>`;
   });
 
+  // Seules les lignes qui different d'une version a l'autre sont affichees : le
+  // reste (les ingredients communs) allongerait le tableau sans rien apprendre.
   const lignes = [];
   const portionsDefinies = versions.map((v) => portionsDe(v.r));
-  if (portionsDefinies.some(Boolean)) {
-    const cases = portionsDefinies.map((p, k) => {
-      const diff = k > 0 && p !== portionsDefinies[0];
-      return `<td${diff ? ' class="diff"' : ''}>${p ?? '—'}</td>`;
-    });
+  if (portionsDefinies.some((p, k) => k > 0 && p !== portionsDefinies[0])) {
+    const cases = portionsDefinies.map((p, k) => `<td${k > 0 && p !== portionsDefinies[0] ? ' class="diff"' : ''}>${p ?? '—'}</td>`);
     lignes.push(`    <tr><th scope="row">Portions</th>${cases.join('')}</tr>`);
   }
+  let identiques = 0;
   for (const cle of cles) {
     const reference = parVersion[0].get(cle);
+    const differe = parVersion.some((liste, k) => {
+      if (k === 0) return false;
+      const c = liste.get(cle);
+      return c ? !reference || !memeQuantite(reference, c) : Boolean(reference);
+    });
+    if (!differe) {
+      identiques++;
+      continue;
+    }
     const cases = parVersion.map((liste, k) => cellule(liste.get(cle), reference, k === 0));
     lignes.push(`    <tr><th scope="row">${esc(noms.get(cle))}</th>${cases.join('')}</tr>`);
   }
   const temps = versions.map((v) => Math.round(v.r.metrics.totalTime ?? 0));
-  if (temps.some(Boolean)) {
+  if (temps.some((t, k) => k > 0 && t !== temps[0])) {
     const cases = temps.map((t, k) => `<td${k > 0 && t !== temps[0] ? ' class="diff"' : ''}>${esc(formaterDuree(t) || '—')}</td>`);
     lignes.push(`    <tr><th scope="row">Temps total</th>${cases.join('')}</tr>`);
   }
 
+  const reste = identiques
+    ? ` ${identiques} ingrédient${identiques > 1 ? 's' : ''} identique${identiques > 1 ? 's' : ''} dans toutes les versions ne ${identiques > 1 ? 'sont' : 'est'} pas affiché${identiques > 1 ? 's' : ''}.`
+    : '';
   const legende = pRef
-    ? `Quantités pour ${pRef} portions${ramenees ? ' (celles de l’originale ; les versions écrites pour un autre nombre de portions sont ramenées à celui-ci)' : ''}. Les cases colorées diffèrent de l’originale.`
-    : 'Quantités telles qu’écrites dans chaque version. Les cases colorées diffèrent de l’originale.';
+    ? `Ce qui diffère de l’originale, pour ${pRef} portions${ramenees ? ' (celles de l’originale ; les versions écrites pour un autre nombre de portions sont ramenées à celui-ci)' : ''}.${reste}`
+    : `Ce qui diffère de l’originale, quantités telles qu’écrites dans chaque version.${reste}`;
+  const tableau = lignes.length
+    ? `<p class="versions-legende">${legende}</p>\n\n` +
+      `<table class="versions-tableau">\n  <thead>\n    <tr><th scope="col"></th>${entetes.join('')}</tr>\n  </thead>\n  <tbody>\n${lignes.join('\n')}\n  </tbody>\n</table>`
+    : '<p class="versions-legende">Les versions ont les mêmes ingrédients, aux mêmes quantités.</p>';
 
   return (
     `<h2 id="${idTitre}">${courant ? 'Toutes les versions' : 'Variantes'}</h2>\n` +
     `<ul class="versions-liste">\n${fiches.join('\n')}\n</ul>\n\n` +
-    `<p class="versions-legende">${legende}</p>\n\n` +
-    `<table class="versions-tableau">\n  <thead>\n    <tr><th scope="col"></th>${entetes.join('')}</tr>\n  </thead>\n  <tbody>\n${lignes.join('\n')}\n  </tbody>\n</table>`
+    tableau
   );
 }
