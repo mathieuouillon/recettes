@@ -1,0 +1,7 @@
+{%- comment -%}
+  Inclus par Chirpy dans <head>. Sur les pages de recette (generees depuis un
+  fichier .gram), charge le script des portions et du telechargement.
+{%- endcomment -%}
+{%- if page.gram -%}
+  <script type="module" src="{{ '/assets/js/recette.js' | relative_url }}"></script>
+{%- endif -%}

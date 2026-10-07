@@ -1,0 +1,28 @@
+---
+title: 'Pain de campagne à la levure'
+description: "Une miche croustillante à la farine bise, cuite en cocotte. Comptez une demi-journée, surtout de l’attente."
+category: 'Pains'
+tags: ['pain', 'boulange']
+portions: 8
+makes: "1 miche d’environ 850 g"
+date: 2026-10-06
+notes: "L’eau, le sel et la levure sont exprimés en pourcentage du poids de farine (68 %, 2 % et 1 %), comme en boulangerie : changez la quantité de farine et Gram recalcule tout le reste."
+---
+
+## Pâte ->&pâte
+
+[Autolyser] Dans un #saladier{}, mélanger la @*farine T80{500 g} et l'@eau{68% @&farine T80}(tiède) juste assez pour qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30 min}.
+
+[Pétrir] Émietter la @levure boulangère fraîche{1% @&farine T80} sur la pâte, ajouter le @sel{2% @&farine T80} et pétrir au #robot pétrisseur{} à vitesse lente ~{10 min}, jusqu'à ce que la pâte soit lisse et se décolle des parois.
+
+[Pointer] Couvrir et laisser lever à température ambiante ~_pousse{90 min}, en faisant un rabat toutes les 30 minutes.
+
+## Façonnage et cuisson
+
+[Façonner] Dégazer délicatement la &pâte, la façonner en boule serrée et la déposer dans un #banneton{} fleuré de @farine de seigle{}. Laisser lever ~_apprêt{1 h}.
+
+[Préchauffer] Pendant l'apprêt, préchauffer le #four à ^four{250 °C} avec une #cocotte en fonte{}(26 cm) à l'intérieur ~_préchauffage{45 min}.
+
+[Cuire] Retourner le pain dans la cocotte brûlante, le grigner à la #lame et cuire à couvert ~_four{25 min}, puis à découvert à ^{230 °C} ~_four{20 min}, jusqu'à ce que la croûte soit bien dorée.
+
+[Refroidir] Laisser refroidir sur une #grille ~_refroidir{1 h} avant de trancher.

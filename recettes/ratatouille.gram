@@ -1,0 +1,26 @@
+---
+title: 'Ratatouille'
+description: 'Le grand classique provençal : chaque légume est saisi séparément avant de mijoter avec les tomates. Encore meilleure réchauffée le lendemain.'
+category: 'Plats'
+tags: ['légumes', 'provence', 'végétarien']
+portions: 6
+date: 2026-10-06
+---
+
+## Légumes saisis ->&légumes{}
+
+[Saisir] Dans une #grande poêle{}, chauffer l'@huile d'olive{3 c.à.s} sur ^{feu vif} et faire dorer les @aubergines{2}(en cubes de 2 cm) ~{8 min}. Réserver dans un #saladier{}.
+
+[Saisir] Dans la même poêle, avec un peu d'@&huile d'olive{1 c.à.s}, faire dorer les @courgettes{3}(en cubes de 2 cm) ~{6 min}, puis les ajouter aux aubergines.
+
+[Saisir] Faire de même avec les @poivrons{2}(un rouge et un jaune, épépinés, en lanières) et un peu d'@&huile d'olive{1 c.à.s} ~{6 min}.
+
+## Mijotage
+
+[Fondre] Dans une #cocotte{}, faire fondre les @oignons{2}(émincés) dans l'@&huile d'olive{2 c.à.s} sur ^{feu moyen} ~{5 min}, puis ajouter l'@ail{3 gousses}(haché).
+
+[Compoter] Ajouter les @tomates{6}(pelées, épépinées et concassées)|@tomates concassées en conserve{800 g}, le @thym{2 brins}, le @laurier{1 feuille}, du @sel{} et du @poivre{}. Laisser compoter à couvert ~_mijotage{15 min}.
+
+[Mijoter] Ajouter les &légumes{}, mélanger délicatement et laisser mijoter à ^{feu doux} ~_mijotage{30 min}.
+
+[Servir] Rectifier l'assaisonnement et parsemer de @?basilic frais{}(ciselé) au moment de servir, chaude ou froide.

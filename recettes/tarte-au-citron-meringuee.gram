@@ -1,0 +1,35 @@
+---
+title: 'Tarte au citron meringuée'
+description: 'Une pâte sablée préparée la veille, une crème au citron bien acidulée et une meringue italienne dorée au chalumeau.'
+category: 'Desserts'
+tags: ['tarte', 'citron', 'pâtisserie']
+portions: 8
+makes: '1 tarte de 24 cm'
+date: 2026-10-06
+---
+
+@use "@bases/pate-sablee.gram" as &pâte ~{-1d}
+
+## Fond de tarte ->&fond de tarte{}
+
+[Foncer] Abaisser la &pâte sur 3 mm d'épaisseur et en garnir un #cercle à tarte{}(24 cm, beurré). Piquer le fond à la fourchette et réserver au #réfrigérateur ~_froid{30 min}.
+
+[Cuire à blanc] Cuire dans le #four préchauffé à ^four{170 °C} ~_four{20 min}, jusqu'à ce que le fond soit doré, puis laisser refroidir sur une #grille ~_refroidir{20 min}.
+
+## Crème au citron ->&crème citron{}
+
+[Cuire] Dans une #casserole{}, fouetter le @jus de citron{120 ml}<@citrons{3}(pressés), le @zeste de citron{2}<@citrons{2}, le @sucre{150 g}, les @œufs{3} et la @fécule de maïs{20 g}. Cuire sur ^{feu moyen} sans cesser de fouetter ~{5 min}, jusqu'à épaississement.
+
+[Monter] Hors du feu, incorporer le @beurre{80 g}(froid, en morceaux), puis laisser tiédir ~_tiédir{15 min}.
+
+## Meringue italienne ->&meringue{}
+
+[Sirop] Dans une #petite casserole{}, cuire le @&sucre{150 g} avec l'@eau{50 ml} jusqu'à ^sirop{118 °C}.
+
+[Fouetter] Pendant ce temps, monter les @blancs d'œufs{3}<@œufs{3} au #batteur électrique{}. Verser le sirop en filet sans cesser de battre, puis fouetter jusqu'à refroidissement ~{8 min}.
+
+## Montage
+
+[Garnir] Verser la &crème citron{} sur le &fond de tarte{} et lisser.
+
+[Décorer] Pocher la &meringue{} à la #poche à douille{}, puis la dorer au #?chalumeau ou sous le gril du #&four ~_four{2 min}.

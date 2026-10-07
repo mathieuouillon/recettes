@@ -1,0 +1,415 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* ----- Recettes Gram : couleurs (clair / sombre, comme Chirpy) ----- */
+
+@mixin recette-clair {
+  --r-ing: #9a4a00;
+  --r-ust: #1f5f8b;
+  --r-interm: #6b3fa0;
+  --r-actif: #8a5a00;
+  --r-actif-bg: rgb(255 193 7 / 16%);
+  --r-passif: #2f6f4f;
+  --r-passif-bg: rgb(46 160 67 / 12%);
+  --r-temp: #b3261e;
+  --r-temp-bg: rgb(220 53 69 / 9%);
+  --r-chip-bg: rgb(0 0 0 / 3.5%);
+  --r-fiche-bg: #fbf8f3;
+  --r-fiche-bord: #eee4d4;
+  --r-meta: #6e7781;
+  --r-sec: #0550ae;
+  --r-com: #8c959f;
+}
+
+@mixin recette-sombre {
+  --r-ing: #f0a35e;
+  --r-ust: #79b8e8;
+  --r-interm: #c4a5f0;
+  --r-actif: #f2c86b;
+  --r-actif-bg: rgb(255 193 7 / 12%);
+  --r-passif: #7fd1a0;
+  --r-passif-bg: rgb(46 160 67 / 16%);
+  --r-temp: #ff8a80;
+  --r-temp-bg: rgb(255 82 82 / 12%);
+  --r-chip-bg: rgb(255 255 255 / 5%);
+  --r-fiche-bg: rgb(255 255 255 / 3%);
+  --r-fiche-bord: rgb(255 255 255 / 10%);
+  --r-meta: #8b949e;
+  --r-sec: #79c0ff;
+  --r-com: #8b949e;
+}
+
+:root {
+  @include recette-clair;
+}
+
+:root[data-mode='dark'] {
+  @include recette-sombre;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode]) {
+    @include recette-sombre;
+  }
+}
+
+/* ----- Fiche (portions, temps) ----- */
+
+.fiche-recette {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 2rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--r-fiche-bord);
+  border-radius: 0.75rem;
+  background: var(--r-fiche-bg);
+}
+
+.fiche-case {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fiche-titre {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted-color);
+
+  i {
+    width: 1.1em;
+    text-align: center;
+  }
+}
+
+.fiche-valeur {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.reglage-portions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  output {
+    min-width: 2.2ch;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+
+  button {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--r-fiche-bord);
+    border-radius: 50%;
+    background: var(--main-bg);
+    color: var(--text-color);
+    font-weight: 600;
+    line-height: 1;
+
+    &:hover:not(:disabled) {
+      border-color: var(--link-color);
+      color: var(--link-color);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+    }
+  }
+
+  .portions-reset {
+    width: auto;
+    padding: 0 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+}
+
+/* ----- Ingredients et materiel ----- */
+
+.liste-ingredients,
+.liste-materiel {
+  padding-left: 0;
+  list-style: none;
+  columns: 2 16rem;
+  column-gap: 2rem;
+
+  li {
+    break-inside: avoid;
+    padding: 0.2rem 0;
+  }
+}
+
+.liste-ingredients {
+  label {
+    display: inline;
+    cursor: pointer;
+  }
+
+  input {
+    margin-right: 0.35rem;
+    accent-color: var(--r-ing);
+  }
+
+  li:has(input:checked) {
+    color: var(--text-muted-color);
+    text-decoration: line-through;
+  }
+}
+
+.liste-materiel li::before {
+  content: '·';
+  margin-right: 0.5rem;
+  color: var(--r-ust);
+  font-weight: 700;
+}
+
+.ing-nom {
+  font-weight: 600;
+}
+
+.qte {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ing-detail {
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--text-muted-color);
+}
+
+.ou {
+  font-size: 0.85em;
+  font-style: italic;
+  color: var(--text-muted-color);
+}
+
+/* ----- Etapes ----- */
+
+.recette-gram h3 .badge-section {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  vertical-align: middle;
+  color: var(--text-muted-color);
+}
+
+.mise-en-place {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.25rem 0 1rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+
+  li {
+    padding: 0.1rem 0.6rem;
+    border-radius: 1rem;
+    background: var(--r-chip-bg);
+  }
+}
+
+.etapes {
+  li {
+    margin-bottom: 0.7rem;
+    line-height: 1.75;
+  }
+
+  li.sans-numero {
+    list-style: none;
+  }
+}
+
+.action {
+  display: inline-block;
+  margin-right: 0.15rem;
+  padding: 0 0.45rem;
+  border-radius: 0.3rem;
+  background: var(--r-chip-bg);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.ing {
+  font-weight: 600;
+  color: var(--r-ing);
+}
+
+.ing-q {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--text-muted-color);
+}
+
+.ustensile {
+  color: var(--r-ust);
+}
+
+.intermediaire {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--r-interm);
+}
+
+.minuteur,
+.temperature {
+  padding: 0.05rem 0.45rem;
+  border-radius: 0.4rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.minuteur {
+  color: var(--r-actif);
+  background: var(--r-actif-bg);
+
+  &.passif {
+    color: var(--r-passif);
+    background: var(--r-passif-bg);
+  }
+}
+
+.temperature {
+  color: var(--r-temp);
+  background: var(--r-temp-bg);
+}
+
+.declaration,
+.resultat-section {
+  font-size: 0.85em;
+  color: var(--text-muted-color);
+}
+
+.commentaire {
+  font-style: italic;
+  color: var(--text-muted-color);
+
+  &::before {
+    content: '\2014\00a0';
+  }
+}
+
+.recette-info {
+  color: var(--text-muted-color);
+}
+
+/* ----- Source Gram ----- */
+
+.source-gram {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--main-border-color);
+
+  summary {
+    cursor: pointer;
+    color: var(--text-muted-color);
+  }
+
+  p {
+    margin: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+
+  pre {
+    padding: 1rem 1.2rem;
+    border-radius: 0.5rem;
+    background: var(--highlight-bg-color);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  code {
+    color: var(--text-color);
+  }
+}
+
+.telecharger-gram {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--link-color);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.g-meta,
+.g-com {
+  color: var(--r-com);
+}
+
+.g-com {
+  font-style: italic;
+}
+
+.g-sec {
+  font-weight: 700;
+  color: var(--r-sec);
+}
+
+.g-action {
+  font-weight: 700;
+}
+
+.g-ing {
+  color: var(--r-ing);
+}
+
+.g-ust {
+  color: var(--r-ust);
+}
+
+.g-ref,
+.g-use {
+  color: var(--r-interm);
+}
+
+.g-min {
+  color: var(--r-passif);
+}
+
+.g-temp {
+  color: var(--r-temp);
+}
+
+/* ----- Impression ----- */
+
+@media print {
+  .reglage-portions button,
+  .source-gram {
+    display: none !important;
+  }
+
+  .liste-ingredients input {
+    display: none;
+  }
+}
