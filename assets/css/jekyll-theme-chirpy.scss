@@ -580,6 +580,29 @@
   }
 }
 
+.versions-comparaison {
+  margin-bottom: 1.5rem;
+
+  summary {
+    cursor: pointer;
+    color: var(--link-color);
+    font-weight: 600;
+  }
+
+  .fermer,
+  &[open] .ouvrir {
+    display: none;
+  }
+
+  &[open] .fermer {
+    display: inline;
+  }
+
+  summary + .versions-legende {
+    margin-top: 0.8rem;
+  }
+}
+
 .versions-legende {
   margin-bottom: 0.4rem;
   font-size: 0.85rem;

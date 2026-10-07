@@ -618,8 +618,10 @@ export function blocVersions({ racine, variantes, courant, idTitre }) {
     ? `Ce qui diffère de l’originale, pour ${pRef} portions${ramenees ? ' (celles de l’originale ; les versions écrites pour un autre nombre de portions sont ramenées à celui-ci)' : ''}.${reste}`
     : `Ce qui diffère de l’originale, quantités telles qu’écrites dans chaque version.${reste}`;
   const tableau = lignes.length
-    ? `<p class="versions-legende">${legende}</p>\n\n` +
-      `<table class="versions-tableau">\n  <thead>\n    <tr><th scope="col"></th>${entetes.join('')}</tr>\n  </thead>\n  <tbody>\n${lignes.join('\n')}\n  </tbody>\n</table>`
+    ? `<details class="versions-comparaison">\n` +
+      `<summary><span class="ouvrir">Afficher la comparaison</span><span class="fermer">Masquer la comparaison</span></summary>\n\n` +
+      `<p class="versions-legende">${legende}</p>\n\n` +
+      `<table class="versions-tableau">\n  <thead>\n    <tr><th scope="col"></th>${entetes.join('')}</tr>\n  </thead>\n  <tbody>\n${lignes.join('\n')}\n  </tbody>\n</table>\n</details>`
     : '<p class="versions-legende">Les versions ont les mêmes ingrédients, aux mêmes quantités.</p>';
 
   return (
