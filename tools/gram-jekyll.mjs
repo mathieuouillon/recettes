@@ -178,25 +178,23 @@ class Rendu {
       `<button type="button" class="portions-plus" aria-label="Augmenter">+</button>` +
       `<button type="button" class="portions-reset" hidden>initial</button></span>`;
 
-    const cases = [
-      ['fa-user-group', portions > 0 ? 'Portions' : 'Quantités', boutons]
-    ];
+    const cases = [[portions > 0 ? 'Portions' : 'Quantités', boutons]];
     const travail = (metrics.preparationTime ?? 0) + (metrics.activeTime ?? 0);
-    if (travail) cases.push(['fa-hand', 'Préparation', formaterDuree(travail)]);
-    if (metrics.idleTime) cases.push(['fa-hourglass-half', 'Attente', formaterDuree(metrics.idleTime)]);
-    if (metrics.totalTime) cases.push(['fa-clock', 'Temps total', formaterDuree(metrics.totalTime)]);
+    if (travail) cases.push(['Préparation', formaterDuree(travail)]);
+    if (metrics.idleTime) cases.push(['Attente', formaterDuree(metrics.idleTime)]);
+    if (metrics.totalTime) cases.push(['Temps total', formaterDuree(metrics.totalTime)]);
     const anticipations = this.r.sections.map((s) => s.retro_planning?.minutes).filter((m) => m < 0);
     if (anticipations.length) {
-      cases.push(['fa-calendar-day', 'À commencer', formaterAnticipation(Math.min(...anticipations))]);
+      cases.push(['À commencer', formaterAnticipation(Math.min(...anticipations))]);
     }
-    if (meta.makes) cases.push(['fa-cookie-bite', 'Donne', esc(meta.makes)]);
+    if (meta.makes) cases.push(['Donne', esc(meta.makes)]);
 
     return (
       '<div class="fiche-recette">\n' +
       cases
         .map(
-          ([icone, titre, valeur]) =>
-            `  <div class="fiche-case"><span class="fiche-titre"><i class="fas ${icone}" aria-hidden="true"></i> ${titre}</span><span class="fiche-valeur">${valeur}</span></div>`
+          ([titre, valeur]) =>
+            `  <div class="fiche-case"><span class="fiche-titre">${titre}</span><span class="fiche-valeur">${valeur}</span></div>`
         )
         .join('\n') +
       '\n</div>'

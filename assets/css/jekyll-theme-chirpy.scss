@@ -27,8 +27,7 @@
   --r-temp: #b3261e;
   --r-temp-bg: rgb(220 53 69 / 9%);
   --r-chip-bg: rgb(0 0 0 / 3.5%);
-  --r-fiche-bg: #fbf8f3;
-  --r-fiche-bord: #eee4d4;
+  --r-filet: #ddd8cc;
   --r-meta: #6e7781;
   --r-sec: #0550ae;
   --r-com: #8c959f;
@@ -45,8 +44,7 @@
   --r-temp: #ff8a80;
   --r-temp-bg: rgb(255 82 82 / 12%);
   --r-chip-bg: rgb(255 255 255 / 5%);
-  --r-fiche-bg: rgb(255 255 255 / 3%);
-  --r-fiche-bord: rgb(255 255 255 / 10%);
+  --r-filet: rgb(255 255 255 / 14%);
   --r-meta: #8b949e;
   --r-sec: #79c0ff;
   --r-com: #8b949e;
@@ -69,14 +67,13 @@
 /* ----- Fiche (portions, temps) ----- */
 
 .fiche-recette {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-  gap: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.75rem;
   margin: 0.5rem 0 2rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--r-fiche-bord);
-  border-radius: 0.75rem;
-  background: var(--r-fiche-bg);
+  padding: 1rem 0;
+  border-top: 1px solid var(--r-filet);
+  border-bottom: 1px solid var(--r-filet);
 }
 
 .fiche-case {
@@ -86,15 +83,8 @@
 }
 
 .fiche-titre {
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
   color: var(--text-muted-color);
-
-  i {
-    width: 1.1em;
-    text-align: center;
-  }
 }
 
 .fiche-valeur {
@@ -118,7 +108,7 @@
     width: 1.75rem;
     height: 1.75rem;
     padding: 0;
-    border: 1px solid var(--r-fiche-bord);
+    border: 1px solid var(--r-filet);
     border-radius: 50%;
     background: var(--main-bg);
     color: var(--text-color);
@@ -403,6 +393,13 @@
 
 /* ----- Variantes et essais ----- */
 
+.statut {
+  font-size: 0.85em;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--statut);
+}
+
 .statut-essai {
   --statut: var(--r-ust);
 }
@@ -413,23 +410,6 @@
 
 .statut-ecartee {
   --statut: var(--r-meta);
-}
-
-.badge-statut {
-  display: inline-block;
-  padding: 0.05rem 0.6rem;
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-  color: var(--statut);
-  background: color-mix(in srgb, var(--statut) 14%, transparent);
-}
-
-i.statut-essai,
-i.statut-retenue,
-i.statut-ecartee {
-  color: var(--statut);
 }
 
 .recette-gram ins,
@@ -451,12 +431,10 @@ i.statut-ecartee {
 }
 
 .variante-bandeau {
-  margin: 0.5rem 0 1.5rem;
-  padding: 0.8rem 1.1rem 0.2rem;
-  border: 1px solid var(--r-fiche-bord);
-  border-left: 4px solid var(--statut);
-  border-radius: 0.5rem;
-  background: var(--r-fiche-bg);
+  margin: 0.5rem 0 1.75rem;
+  padding: 0.9rem 0 0.3rem;
+  border-top: 1px solid var(--r-filet);
+  border-bottom: 1px solid var(--r-filet);
 
   p {
     margin: 0 0 0.6rem;
@@ -464,6 +442,16 @@ i.statut-ecartee {
 
   a {
     font-weight: 600;
+  }
+
+  /* Suivi de la fiche : un seul filet entre les deux. */
+  &:has(+ .fiche-recette) {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  + .fiche-recette {
+    margin-top: 0;
   }
 }
 
@@ -491,21 +479,7 @@ i.statut-ecartee {
 
   .chg {
     margin: 0 0 0.45rem;
-    padding-left: 0.75rem;
-    border-left: 3px solid var(--r-fiche-bord);
     line-height: 1.8;
-  }
-
-  .chg-modifie {
-    border-left-color: var(--r-actif);
-  }
-
-  .chg-ajoute {
-    border-left-color: var(--r-passif);
-  }
-
-  .chg-retire {
-    border-left-color: var(--r-temp);
   }
 }
 
@@ -514,6 +488,7 @@ i.statut-ecartee {
 }
 
 .chg-signe {
+  margin-right: 0.15rem;
   font-weight: 700;
 }
 
@@ -524,26 +499,25 @@ i.statut-ecartee {
 }
 
 .chg-section {
-  display: inline-block;
-  margin-right: 0.15rem;
-  padding: 0 0.5rem;
-  border-radius: 1rem;
-  background: var(--r-chip-bg);
-  font-size: 0.75rem;
+  margin-right: 0.2rem;
+  font-size: 0.85rem;
   color: var(--text-muted-color);
+
+  &::after {
+    content: ' \00b7';
+  }
 }
 
 /* Marques dans la liste d'ingredients d'une variante */
 
-.liste-ingredients li.ing-modifie,
-.liste-ingredients li.ing-ajoute {
-  margin-left: -0.5rem;
-  padding-left: 0.5rem;
-  border-left: 3px solid var(--r-actif);
+.liste-ingredients li.ing-modifie .ing-nom + .qte {
+  font-weight: 600;
+  color: var(--r-actif);
 }
 
-.liste-ingredients li.ing-ajoute {
-  border-left-color: var(--r-passif);
+.liste-ingredients li.ing-ajoute .ing-nom + .qte {
+  font-weight: 600;
+  color: var(--r-passif);
 }
 
 .avant {
@@ -552,53 +526,57 @@ i.statut-ecartee {
 }
 
 .badge-nouveau {
-  padding: 0 0.5rem;
-  border-radius: 1rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
   color: var(--r-passif);
-  background: var(--r-passif-bg);
 }
 
 /* Liste et tableau des versions */
 
 .versions-liste {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: 0.75rem;
   margin: 0.5rem 0 1.5rem;
   padding: 0;
   list-style: none;
+  border-top: 1px solid var(--r-filet);
 
   .version {
-    --statut: var(--r-meta);
-
-    padding: 0.7rem 0.9rem;
-    border: 1px solid var(--r-fiche-bord);
-    border-top: 3px solid var(--statut);
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-
-    &.courant {
-      background: var(--r-fiche-bg);
-      box-shadow: 0 0 0 1px var(--statut);
-    }
+    padding: 0.9rem 0 0.7rem;
+    border-bottom: 1px solid var(--r-filet);
   }
 
   .version-tete {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
+    font-size: 1.05rem;
+
+    a,
+    strong {
+      font-weight: 600;
+    }
+
+    .ing-detail {
+      font-size: 0.8em;
+    }
   }
 
   .version-info {
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.25rem;
   }
 
   .version-resume {
     margin: 0;
-    padding-left: 1.1rem;
+    padding: 0;
+    list-style: none;
     font-size: 0.85rem;
     color: var(--text-muted-color);
+
+    li {
+      display: inline;
+    }
+
+    li + li::before {
+      content: '\00b7';
+      margin: 0 0.45em;
+    }
   }
 }
 
@@ -610,7 +588,13 @@ i.statut-ecartee {
 
 .versions-tableau {
   th.courant {
-    box-shadow: inset 0 -3px 0 var(--statut, var(--link-color));
+    color: var(--heading-color);
+  }
+
+  th .statut {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
   }
 
   td.diff {

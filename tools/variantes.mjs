@@ -18,9 +18,9 @@ const NBSP = ' ';
 // --------------------------------------------------------------- statuts
 
 export const STATUTS = {
-  essai: { libelle: 'Essai', icone: 'fa-flask' },
-  retenue: { libelle: 'Retenue', icone: 'fa-star' },
-  ecartee: { libelle: 'Écartée', icone: 'fa-ban' }
+  essai: { libelle: 'Essai' },
+  retenue: { libelle: 'Retenue' },
+  ecartee: { libelle: 'Écartée' }
 };
 
 const ALIAS_STATUTS = { abandonnee: 'ecartee', rejetee: 'ecartee' };
@@ -34,9 +34,9 @@ export function normaliserStatut(valeur) {
   return STATUTS[statut] ? statut : null;
 }
 
-export function badgeStatut(statut) {
-  const s = STATUTS[statut];
-  return `<span class="badge-statut statut-${statut}"><i class="fas ${s.icone}" aria-hidden="true"></i> ${s.libelle}</span>`;
+// Le statut s'ecrit en toutes lettres, colore : ni pastille, ni icone.
+export function texteStatut(statut) {
+  return `<span class="statut statut-${statut}">${STATUTS[statut].libelle}</span>`;
 }
 
 // ----------------------------------------------------- liste de courses
@@ -441,11 +441,11 @@ const paragraphes = (texte) => esc(String(texte).trim()).replace(/\n+/g, '<br>')
 // En haut de la page d'une variante.
 export function bandeauVariante(v, racine) {
   const lignes = [
-    `<p class="variante-de"><i class="fas fa-code-branch" aria-hidden="true"></i> Variante de <a href="${esc(racine.url)}">${esc(racine.titre)}</a> ${badgeStatut(v.statut)}</p>`
+    `<p class="variante-de">Variante de <a href="${esc(racine.url)}">${esc(racine.titre)}</a> · ${texteStatut(v.statut)}</p>`
   ];
   if (v.objectif) lignes.push(`<p><strong>Objectif</strong> : ${paragraphes(v.objectif)}</p>`);
   if (v.verdict) lignes.push(`<p><strong>Verdict</strong> : ${paragraphes(v.verdict)}</p>`);
-  return `<div class="variante-bandeau statut-${v.statut}">\n${lignes.join('\n')}\n</div>`;
+  return `<div class="variante-bandeau">\n${lignes.join('\n')}\n</div>`;
 }
 
 // En haut de la page d'une recette dont une variante est retenue.
@@ -454,10 +454,10 @@ export function bandeauRetenue(variantes) {
   if (!retenues.length) return '';
   const lignes = retenues.map(
     (v) =>
-      `<p><i class="fas fa-star" aria-hidden="true"></i> <strong>Version retenue</strong> : <a href="${esc(v.url)}">${esc(v.nom)}</a>` +
+      `<p><strong>Version retenue</strong> : <a href="${esc(v.url)}">${esc(v.nom)}</a>` +
       `${v.verdict ? ` — ${esc(String(v.verdict).trim().replace(/\s*\n+\s*/g, ' '))}` : ''}</p>`
   );
-  return `<div class="variante-bandeau statut-retenue">\n${lignes.join('\n')}\n</div>`;
+  return `<div class="variante-bandeau">\n${lignes.join('\n')}\n</div>`;
 }
 
 const texteOuTiret = (c) => (c?.texte ? esc(c.texte) : '—');
@@ -534,12 +534,12 @@ export function blocVersions({ racine, variantes, courant, idTitre }) {
 
   // --- fiches
   const fiches = versions.map((v) => {
-    const classes = ['version', v === racine ? 'originale' : `statut-${v.statut}`];
+    const classes = ['version'];
     if (estCourante(v)) classes.push('courant');
-    const titre = estCourante(v) ? `<strong>${esc(v.nom)}</strong>` : `<a href="${esc(v.url)}">${esc(v.nom)}</a>`;
-    const marque = estCourante(v) ? ' <span class="ing-detail">(vous êtes ici)</span>' : '';
-    const badge = v === racine ? '' : ` ${badgeStatut(v.statut)}`;
-    const morceaux = [`<div class="version-tete">${titre}${badge}${marque}</div>`];
+    const tete = [estCourante(v) ? `<strong>${esc(v.nom)}</strong>` : `<a href="${esc(v.url)}">${esc(v.nom)}</a>`];
+    if (v !== racine) tete.push(texteStatut(v.statut));
+    if (estCourante(v)) tete.push('<span class="ing-detail">vous êtes ici</span>');
+    const morceaux = [`<div class="version-tete">${tete.join(' · ')}</div>`];
     if (v === racine) morceaux.push(`<p class="version-info">${esc(v.titre)}</p>`);
     else {
       if (v.objectif) morceaux.push(`<p class="version-info"><strong>Objectif</strong> : ${paragraphes(v.objectif)}</p>`);
@@ -578,8 +578,8 @@ export function blocVersions({ racine, variantes, courant, idTitre }) {
   const entetes = versions.map((v) => {
     const nom = v === racine ? 'Originale' : v.nom;
     const contenu = estCourante(v) ? esc(nom) : `<a href="${esc(v.url)}">${esc(nom)}</a>`;
-    const icone = v === racine ? '' : ` <i class="fas ${STATUTS[v.statut].icone} statut-${v.statut}" title="${STATUTS[v.statut].libelle}" aria-hidden="true"></i>`;
-    return `<th scope="col"${estCourante(v) ? ' class="courant"' : ''}>${contenu}${icone}</th>`;
+    const statut = v === racine ? '' : texteStatut(v.statut);
+    return `<th scope="col"${estCourante(v) ? ' class="courant"' : ''}>${contenu}${statut}</th>`;
   });
 
   const lignes = [];
