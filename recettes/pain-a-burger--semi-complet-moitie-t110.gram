@@ -4,7 +4,7 @@ date: 2026-10-07
 variante_de: pain-a-burger
 variante: "semi-complet (moitié T110)"
 statut: essai    # essai, retenue ou ecartee
-objectif: "Des buns semi-complets plus légers : la moitié de la farine en T110, une hydratation autour de 68 %, moins de beurre, un jaune d’œuf dans la pâte et des pâtons bien aplatis"    # ce que vous cherchez à tester
+objectif: "Des buns semi-complets plus légers : de la T110 mêlée à la T55, moins de beurre, un jaune d’œuf dans la pâte et des pâtons bien aplatis"    # ce que vous cherchez à tester
 verdict: ""    # après dégustation : ce que ça a donné
 category: 'Pains'
 tags: ['pain', 'burger', 'boulange']
@@ -13,7 +13,7 @@ makes: '3 buns'
 
 ## Pâte ->&pâte{}
 
-[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{100 g}, la @farine T110{100 g} et le @lait demi-écrémé{135-140 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son de la T110 gonfle et abîme moins le réseau de gluten.
+[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{120 g}, la @farine T110{100 g} et le @lait demi-écrémé{135-140 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son de la T110 gonfle et abîme moins le réseau de gluten.
 
 [Pétrir] Émietter la @levure boulangère fraîche{6-7 g} sur la pâte, ajouter le @sucre{12 g}, le @sel fin{4 g} et, si vous aimez, 1 petit @?jaune d'œuf{1}, qui apporte du liant et du fondant. Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à obtenir une pâte bien agglomérée et élastique.
 
@@ -23,7 +23,7 @@ makes: '3 buns'
 
 ## Façonnage et cuisson
 
-[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 3 pâtons d'environ 130 g. Les rouler en boule très serrée, les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et appuyer fermement avec la paume pour les aplatir à 1,5 cm d'épaisseur : la T110 monte plus en dôme qu'en largeur, des pâtons mal aplatis donnent des « balles de tennis » impossibles à croquer.
+[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 3 pâtons d'environ 140 g. Les rouler en boule très serrée, les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et appuyer fermement avec la paume pour les aplatir à 1,5 cm d'épaisseur : la T110 monte plus en dôme qu'en largeur, des pâtons mal aplatis donnent des « balles de tennis » impossibles à croquer.
 
 [Apprêter] Couvrir d'un #linge propre{} et laisser lever ~_apprêt{45-60min}, jusqu'à ce que les buns soient bien gonflés et moelleux au toucher.
 
