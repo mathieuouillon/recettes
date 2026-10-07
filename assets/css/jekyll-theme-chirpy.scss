@@ -630,11 +630,129 @@
   }
 }
 
+/* ----- Minuteur de cuisine (barre laterale) ----- */
+
+.minuteur-lateral {
+  width: 100%;
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.9rem 1.5rem 1rem 2.4rem;
+  border-top: 1px solid var(--sidebar-border-color);
+  color: var(--sidebar-muted-color);
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 0.4rem;
+    background: none;
+    color: var(--sidebar-active-color);
+    font-size: 0.85rem;
+    line-height: 1.4;
+
+    &:hover {
+      border-color: var(--sidebar-muted-color);
+    }
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+  }
+}
+
+.minuteur-titre {
+  font-size: 0.8rem;
+}
+
+.minuteur-temps {
+  margin: 0.15rem 0 0.6rem !important;
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--sidebar-active-color);
+}
+
+.minuteur-lateral.fini .minuteur-temps {
+  color: var(--r-temp);
+}
+
+.minuteur-ajouts {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
+
+  span {
+    font-size: 0.8rem;
+  }
+}
+
+.minuteur-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.minuteur-lateral .minuteur-principal {
+  font-weight: 600;
+}
+
+.minuteur-lateral.en-marche .minuteur-principal {
+  border-color: var(--r-passif);
+}
+
+/* Cliquer sur le minuteur d'une etape le lance dans la barre laterale. */
+.minuteur[data-secondes] {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Petit ecran : la barre laterale est cachee, une pastille rappelle le temps restant. */
+.minuteur-puce {
+  display: none;
+}
+
+@media (max-width: 849.98px) {
+  .minuteur-puce:not([hidden]) {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 1030;
+    display: block;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--r-filet);
+    border-radius: 0.4rem;
+    background: var(--main-bg);
+    color: var(--heading-color);
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+
+    &.fini {
+      color: var(--r-temp);
+      border-color: var(--r-temp);
+    }
+  }
+}
+
 /* ----- Impression ----- */
 
 @media print {
   .reglage-portions button,
-  .source-gram {
+  .source-gram,
+  .minuteur-lateral,
+  .minuteur-puce {
     display: none !important;
   }
 

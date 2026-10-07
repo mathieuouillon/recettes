@@ -131,9 +131,15 @@ class Rendu {
       texte = q.min.toLocaleString('fr-FR');
       if (q.max !== undefined && q.max !== q.min) texte += ` à ${q.max.toLocaleString('fr-FR')}`;
     }
-    const titre = t.isPassive ? 'Attente : vous êtes libre pendant ce temps' : 'Temps de travail actif';
+    let titre = t.isPassive ? 'Attente : vous êtes libre pendant ce temps' : 'Temps de travail actif';
     const icone = t.isPassive ? 'hourglass-half' : 'stopwatch';
-    return `<span class="minuteur${t.isPassive ? ' passif' : ''}" title="${titre}"><i class="fas fa-${icone}" aria-hidden="true"></i> ${esc(texte)} ${esc(unite)}</span>`;
+    // Cliquer sur le minuteur d'une etape lance le minuteur de la barre laterale
+    // (assets/js/minuteur.js) : pour une fourchette, on prend la duree la plus longue.
+    const facteur = { s: 1, m: 60, min: 60, h: 3600, d: 86400 }[t.unit];
+    const valeur = q && q.texte === undefined ? (q.max ?? q.min) : null;
+    const lancer = facteur && valeur > 0 ? ` data-secondes="${Math.round(valeur * facteur)}" role="button" tabindex="0"` : '';
+    if (lancer) titre += ' · cliquer pour lancer le minuteur';
+    return `<span class="minuteur${t.isPassive ? ' passif' : ''}"${lancer} title="${titre}"><i class="fas fa-${icone}" aria-hidden="true"></i> ${esc(texte)} ${esc(unite)}</span>`;
   }
 
   temperature(t) {

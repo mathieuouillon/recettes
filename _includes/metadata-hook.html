@@ -1,7 +1,10 @@
 {%- comment -%}
-  Inclus par Chirpy dans <head>. Sur les pages de recette (generees depuis un
-  fichier .gram), charge le script des portions et du telechargement.
+  Inclus par Chirpy dans <head>.
+  - minuteur.js : minuteur de cuisine dans la barre laterale, sur toutes les pages.
+  - recette.js : portions et telechargement, sur les pages de recette (generees
+    depuis un fichier .gram).
 {%- endcomment -%}
+<script type="module" src="{{ '/assets/js/minuteur.js' | relative_url }}"></script>
 {%- if page.gram -%}
   <script type="module" src="{{ '/assets/js/recette.js' | relative_url }}"></script>
 {%- endif -%}
