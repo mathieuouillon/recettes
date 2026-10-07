@@ -1,6 +1,6 @@
 ---
 title: 'Burger BBQ joue de porc'
-description: 'Des joues de porc braisées puis effilochées, mêlées à leur jus réduit et à de la sauce BBQ fumée, avec cheddar et pickles d’oignon rouge et de pomme verte.'
+description: 'Des joues de porc braisées puis effilochées, enrobées de leur jus réduit lié à une sauce BBQ maison, avec cheddar et pickles d’oignon rouge et de pomme verte.'
 category: 'Plats'
 tags: ['burger', 'porc', 'barbecue']
 portions: 4
@@ -12,19 +12,29 @@ date: 2026-10-07
 
 [Saisir] Dans une #cocotte{}, faire chauffer l'@huile{1 c.à.s} sur ^{feu vif} et y saisir les @joues de porc{800 g} ~{10 min}, jusqu'à ce qu'elles soient bien colorées. Saler et poivrer avec le @=sel{} et le @poivre{}.
 
-[Mouiller] Ajouter l'@oignon{1}(émincé) et l'@ail{3 gousses}(écrasées), puis mouiller à hauteur avec le @bouillon de volaille{40 cl} et la @bière{20 cl}.
+[Mouiller] Ajouter l'@oignon{1}(émincé), l'@ail{3 gousses}(écrasées), le @thym{2 brins} et le @laurier{1 feuille}, puis mouiller à hauteur avec le @bouillon de volaille{40 cl} et la @bière{20 cl}.
 
 [Braiser] Couvrir et cuire au #four à ^four{140 °C} ~_braisage{180-240min}, jusqu'à ce que les joues s'effilochent à la fourchette.
 
-[Effilocher] Retirer les joues et les effilocher à la #fourchette{}. Faire réduire le jus de cuisson à feu vif ~{15 min}, jusqu'à ce qu'il devienne sirupeux.
+[Effilocher] Retirer les joues de la cocotte et les effilocher à la #fourchette{}. ->&joues effilochées{}
 
-[Mélanger] Réincorporer la viande dans le jus réduit avec la @sauce BBQ fumée{12 cl}. ->&porc effiloché{}
+## Sauce BBQ maison
+
+[Filtrer] Pendant que la viande s'effiloche, passer le jus de cuisson au #chinois{} pour retirer le thym, le laurier et les légumes, puis le remettre dans la cocotte.
+
+[Réduire] Faire réduire le jus filtré à feu vif ~{8-10min}, jusqu'à ce qu'il devienne légèrement sirupeux : il doit en rester environ 15 à 20 cl.
+
+[Fouetter] Dans un #bol{}, fouetter le @ketchup{150 g}, le @vinaigre de cidre{2 c.à.s}, le @sirop d'érable{2 c.à.s}|@cassonade{2 c.à.s}, la @sauce Worcestershire{1 c.à.s}, la @moutarde forte{1 c.à.c} et la @sauce pimentée{1 c.à.c}. ->&base BBQ{}
+
+[Lier] Verser la &base BBQ{} dans le jus réduit et mélanger à feu doux ~{2 min}, pour lier l'ensemble. ->&sauce BBQ{}
+
+[Laquer] Ajouter les &joues effilochées{} dans la cocotte et mélanger à la spatule, pour que chaque fil de viande soit bien enrobé de sauce chaude et brillante. Ajuster l'assaisonnement avec du @&sel{} et du @&poivre{}. ->&porc effiloché{}
 
 ## Pickles d'oignon rouge et de pomme
 
-[Pickler] Dans un #bol{}, mélanger l'@oignon rouge{1}(émincé finement) et la @pomme verte{1}(Granny Smith, en fines lamelles) avec le @vinaigre de cidre{10 cl}, le @sucre{1 c.à.c} et une pincée de @&sel{}. Laisser mariner ~_pickles{30 min}. ->&pickles{}
+[Pickler] Dans un #bol{}, mélanger l'@oignon rouge{1}(émincé finement) et la @pomme verte{1}(Granny Smith, en fines lamelles) avec le @&vinaigre de cidre{10 cl}, le @sucre{1 c.à.c} et une pincée de @&sel{}. Laisser mariner ~_pickles{30 min}. ->&pickles{}
 
-## Sauce
+## Sauce mayonnaise
 
 [Mélanger] Mélanger la @mayonnaise{4 c.à.s} et la @moutarde à l'ancienne{1 c.à.s}. ->&mayonnaise moutardée{}
 
@@ -32,6 +42,6 @@ date: 2026-10-07
 
 [Toaster] Couper les @potato buns{4}|@brioche buns{4} en deux et les toaster à la #poêle{} ~{2 min}.
 
-[Garnir] Tartiner le dessous de chaque bun de &mayonnaise moutardée{} et de @&sauce BBQ fumée{5 cl}, puis déposer le &porc effiloché{} bien chaud. Couvrir de @cheddar affiné{4 tranches} et laisser fondre ~{1 min} au #&four.
+[Garnir] Tartiner le dessous de chaque bun de &mayonnaise moutardée{}, puis déposer le &porc effiloché{} bien chaud. Couvrir de @cheddar affiné{4 tranches} et laisser fondre ~{1 min} au #&four.
 
 [Terminer] Ajouter les &pickles{} et, si vous aimez, un peu de @?coleslaw{150 g}, puis refermer les burgers.
