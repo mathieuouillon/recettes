@@ -9,6 +9,7 @@
   "scripts": {
     "recettes": "node tools/gram-jekyll.mjs",
     "verifier": "node tools/gram-jekyll.mjs --verifier",
+    "variante": "node tools/variante.mjs",
     "serve": "bash tools/serve.sh"
   },
   "dependencies": {

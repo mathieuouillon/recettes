@@ -401,6 +401,228 @@
   color: var(--r-temp);
 }
 
+/* ----- Variantes et essais ----- */
+
+.statut-essai {
+  --statut: var(--r-ust);
+}
+
+.statut-retenue {
+  --statut: var(--r-passif);
+}
+
+.statut-ecartee {
+  --statut: var(--r-meta);
+}
+
+.badge-statut {
+  display: inline-block;
+  padding: 0.05rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--statut);
+  background: color-mix(in srgb, var(--statut) 14%, transparent);
+}
+
+i.statut-essai,
+i.statut-retenue,
+i.statut-ecartee {
+  color: var(--statut);
+}
+
+.recette-gram ins,
+.recette-gram del {
+  padding: 0 0.2em;
+  border-radius: 0.25rem;
+}
+
+.recette-gram ins {
+  text-decoration: none;
+  color: var(--r-passif);
+  background: var(--r-passif-bg);
+}
+
+.recette-gram del {
+  text-decoration: line-through;
+  color: var(--r-temp);
+  background: var(--r-temp-bg);
+}
+
+.variante-bandeau {
+  margin: 0.5rem 0 1.5rem;
+  padding: 0.8rem 1.1rem 0.2rem;
+  border: 1px solid var(--r-fiche-bord);
+  border-left: 4px solid var(--statut);
+  border-radius: 0.5rem;
+  background: var(--r-fiche-bg);
+
+  p {
+    margin: 0 0 0.6rem;
+  }
+
+  a {
+    font-weight: 600;
+  }
+}
+
+/* Ce qui change */
+
+.changements-intro,
+.changements-note,
+.changements-vide {
+  color: var(--text-muted-color);
+}
+
+.changements-note {
+  font-size: 0.85rem;
+}
+
+.chg-titre {
+  margin: 1.2rem 0 0.3rem;
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.changements {
+  padding-left: 0;
+  list-style: none;
+
+  .chg {
+    margin: 0 0 0.45rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--r-fiche-bord);
+    line-height: 1.8;
+  }
+
+  .chg-modifie {
+    border-left-color: var(--r-actif);
+  }
+
+  .chg-ajoute {
+    border-left-color: var(--r-passif);
+  }
+
+  .chg-retire {
+    border-left-color: var(--r-temp);
+  }
+}
+
+.chg-nom {
+  font-weight: 600;
+}
+
+.chg-signe {
+  font-weight: 700;
+}
+
+.chg-pct {
+  font-size: 0.85em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted-color);
+}
+
+.chg-section {
+  display: inline-block;
+  margin-right: 0.15rem;
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  background: var(--r-chip-bg);
+  font-size: 0.75rem;
+  color: var(--text-muted-color);
+}
+
+/* Marques dans la liste d'ingredients d'une variante */
+
+.liste-ingredients li.ing-modifie,
+.liste-ingredients li.ing-ajoute {
+  margin-left: -0.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--r-actif);
+}
+
+.liste-ingredients li.ing-ajoute {
+  border-left-color: var(--r-passif);
+}
+
+.avant {
+  font-size: 0.85em;
+  color: var(--text-muted-color);
+}
+
+.badge-nouveau {
+  padding: 0 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--r-passif);
+  background: var(--r-passif-bg);
+}
+
+/* Liste et tableau des versions */
+
+.versions-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+
+  .version {
+    --statut: var(--r-meta);
+
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--r-fiche-bord);
+    border-top: 3px solid var(--statut);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+
+    &.courant {
+      background: var(--r-fiche-bg);
+      box-shadow: 0 0 0 1px var(--statut);
+    }
+  }
+
+  .version-tete {
+    margin-bottom: 0.3rem;
+  }
+
+  .version-info {
+    margin: 0 0 0.3rem;
+  }
+
+  .version-resume {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted-color);
+  }
+}
+
+.versions-legende {
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+}
+
+.versions-tableau {
+  th.courant {
+    box-shadow: inset 0 -3px 0 var(--statut, var(--link-color));
+  }
+
+  td.diff {
+    font-weight: 600;
+    background: var(--r-actif-bg);
+  }
+
+  td.absent {
+    color: var(--text-muted-color);
+  }
+}
+
 /* ----- Impression ----- */
 
 @media print {

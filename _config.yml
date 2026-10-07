@@ -184,6 +184,11 @@ collections:
   tabs:
     output: true
     sort_by: order
+  # Variantes des recettes (generees dans _variantes/ par tools/gram-jekyll.mjs).
+  # Hors de _posts : elles n'apparaissent ni sur l'accueil, ni dans les archives,
+  # ni dans la recherche, mais chaque recette renvoie vers les siennes.
+  variantes:
+    output: true
 
 defaults:
   - scope:
@@ -206,6 +211,14 @@ defaults:
     values:
       layout: page
       permalink: /:title/
+  - scope:
+      path: ""
+      type: variantes
+    values:
+      layout: post
+      toc: true
+      comments: false
+      permalink: /variantes/:name/
 
 sass:
   style: compressed

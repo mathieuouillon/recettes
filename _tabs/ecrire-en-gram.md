@@ -101,6 +101,48 @@ Ils se placent juste après `@` ou `#`.
   recette avec `@use "@bases/pate-sablee.gram" as &pâte`. Ses ingrédients
   rejoignent la liste de courses et ses étapes s'insèrent dans la recette.
 
+## Tester des variantes
+
+Pour chercher la bonne version d'une recette, on crée des **variantes** : des
+copies que l'on modifie sans toucher à l'originale.
+
+```bash
+npm run variante -- crepes "moins de sucre"
+npm run variante -- crepes "repos long" --objectif "Voir si 3 h changent la texture"
+```
+
+La commande crée `recettes/crepes--moins-de-sucre.gram`, rattachée à
+`crepes.gram` par `variante_de: crepes`. On la modifie comme n'importe quelle
+recette : quantités, temps, étapes. Le site garde la trace de l'expérience.
+
+- La page de la variante montre **ce qui change** par rapport à l'originale :
+  quantités avant → après, ingrédients ajoutés ou retirés, étapes modifiées. Dans
+  la liste, les ingrédients qui changent sont marqués.
+- La page de la recette liste toutes ses variantes avec un **tableau
+  comparatif** où les cases qui diffèrent sont en couleur.
+- Les variantes restent hors de l'accueil, des archives et de la recherche :
+  on y arrive depuis la recette d'origine.
+
+Trois champs de l'en-tête servent à garder le fil :
+
+| clé | rôle |
+|---|---|
+| `objectif` | ce que vous cherchez à tester |
+| `verdict` | ce que ça a donné, après dégustation |
+| `statut` | `essai` (par défaut), `retenue` ou `ecartee` |
+
+Une variante `retenue` est annoncée en haut de la recette d'origine, avec son
+verdict. Gardez `objectif` et `verdict` sur une seule ligne, entre guillemets ;
+`\n` à l'intérieur fait un retour à la ligne.
+
+On peut partir d'une variante pour en faire une autre :
+`npm run variante -- crepes--moins-de-sucre "avec du rhum"`. Elle se rattache
+toujours à la recette d'origine, et les quantités sont comparées pour le nombre
+de portions de l'originale.
+
+Pour comparer dans le terminal :
+`npx gram diff recettes/crepes.gram recettes/crepes--moins-de-sucre.gram`.
+
 ## Vérifier une recette
 
 Dans le dépôt, `npm run verifier` compile toutes les recettes et signale les

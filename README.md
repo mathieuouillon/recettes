@@ -9,7 +9,7 @@ Adresse : <https://mathieuouillon.github.io/recettes/>
 ## Comment ça marche
 
 ```
-recettes/*.gram  ──(tools/gram-jekyll.mjs)──▶  _posts/gram/*.html  ──(Jekyll + Chirpy)──▶  _site/
+recettes/*.gram  ──(tools/gram-jekyll.mjs)──▶  _posts/gram/*.html + _variantes/*.html  ──(Jekyll + Chirpy)──▶  _site/
 ```
 
 1. Chaque recette est un fichier `.gram` dans `recettes/`. Les bases
@@ -22,8 +22,8 @@ recettes/*.gram  ──(tools/gram-jekyll.mjs)──▶  _posts/gram/*.html  ─
 3. Jekyll construit le site. Sur GitHub, le workflow
    `.github/workflows/pages-deploy.yml` enchaîne ces étapes à chaque push.
 
-`_posts/gram/` est entièrement régénéré : ne le modifiez pas à la main (il
-n'est pas suivi par git). Le script `assets/js/recette.js` recalcule les
+`_posts/gram/` et `_variantes/` sont entièrement régénérés : ne les modifiez pas
+à la main (ils ne sont pas suivis par git). Le script `assets/js/recette.js` recalcule les
 quantités dans le navigateur quand on change le nombre de portions.
 
 ## Ajouter une recette
@@ -42,6 +42,32 @@ quantités dans le navigateur quand on change le nombre de portions.
 
 Une erreur Gram (référence inconnue, base introuvable…) bloque la
 construction, en local comme sur GitHub, avec le numéro de ligne en cause.
+
+## Tester des variantes d'une recette
+
+```bash
+npm run variante -- crepes "moins de sucre"
+npm run variante -- crepes "repos long" --objectif "Voir si 3 h changent la texture"
+```
+
+La commande copie `recettes/crepes.gram` en `recettes/crepes--moins-de-sucre.gram`
+et l'en-tête la rattache à l'originale (`variante_de: crepes`) ; on modifie
+ensuite la copie. Sur le site :
+
+- la page de la variante (`/variantes/<nom>/`) liste **ce qui change** par rapport
+  à l'originale et marque les ingrédients modifiés ;
+- la page de la recette présente ses variantes et un **tableau comparatif** ;
+- les variantes sont absentes de l'accueil, des archives et de la recherche.
+
+En-tête d'une variante : `variante_de` (fichier de la recette d'origine, sans
+`.gram`), `variante` (nom court), `objectif`, `verdict` et `statut` (`essai`,
+`retenue` ou `ecartee`). Une variante `retenue` est annoncée en haut de la
+recette d'origine. `npm run verifier` contrôle ces champs.
+
+Le code vit dans `tools/` : `variante.mjs` crée le fichier, `variantes.mjs`
+compare les versions et fabrique les blocs HTML, `commun.mjs` regroupe les
+fonctions partagées avec `gram-jekyll.mjs`. Les pages sont générées dans
+`_variantes/` (comme `_posts/gram/`, absent de git).
 
 ## Aperçu local
 

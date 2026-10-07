@@ -33,8 +33,9 @@ Thumbs.db
 # Claude Code
 .claude
 
-# Recettes generees a partir des fichiers .gram (npm run recettes)
+# Pages generees a partir des fichiers .gram (npm run recettes)
 _posts/gram/
+_variantes/
 
 # Cles d'API de la CLI Gram (gram import, gram db enrich)
 .env

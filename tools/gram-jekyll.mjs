@@ -9,22 +9,43 @@
 // est rendu en HTML francais pour Chirpy. Le dossier _posts/gram/ est regenere
 // entierement a chaque passage : on ne le modifie jamais a la main.
 
-import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
-import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import { runPipeline } from '@gram-lang/cli';
 import { warningSeverityOf } from '@gram-lang/modules';
 import { getAST } from '@gram-lang/parser';
 import YAML from 'yaml';
 
-import { formaterNombre, formaterQuantite } from '../assets/js/recette.js';
-
-const RACINE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+import {
+  RACINE,
+  aModificateur,
+  de,
+  enListe,
+  esc,
+  formaterAnticipation,
+  formaterDuree,
+  git,
+  htmlQuantite,
+  lireEntete,
+  lireQuantite,
+  lireYaml,
+  slug,
+  traduireFormule
+} from './commun.mjs';
+import {
+  bandeauRetenue,
+  bandeauVariante,
+  blocChangements,
+  blocVersions,
+  cleIngredient,
+  descriptionVariante,
+  differences,
+  normaliserStatut
+} from './variantes.mjs';
 const DOSSIER_RECETTES = path.join(RACINE, 'recettes');
 const DOSSIER_POSTS = path.join(RACINE, '_posts', 'gram');
+const DOSSIER_VARIANTES = path.join(RACINE, '_variantes');
 const VERIFIER_SEULEMENT = process.argv.includes('--verifier');
 
 // Avertissements qui signalent seulement une base d'ingredients incomplete
@@ -36,101 +57,6 @@ const UNITES_TEMPS = { s: 's', m: 'min', min: 'min', h: 'h', d: 'j' };
 const GRAVITES = { error: 'erreur', warning: 'attention', info: 'info' };
 
 // ---------------------------------------------------------------- outils
-
-const esc = (s) =>
-  String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-
-function slug(texte) {
-  return String(texte)
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/œ/g, 'oe')
-    .replace(/æ/g, 'ae')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-function git(...args) {
-  try {
-    return execFileSync('git', args, { cwd: RACINE, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
-  } catch {
-    return '';
-  }
-}
-
-const enListe = (v) => (v === undefined || v === null || v === '' ? [] : Array.isArray(v) ? v : [v]);
-
-// "de citrons", "d'œufs"
-const de = (nom) => (/^[aeiouyhœæàâéèêëîïôûù]/i.test(nom) ? `d’${nom}` : `de ${nom}`);
-
-const aModificateur = (u, nom, symbole) => (u.modifiers ?? []).some((m) => m === nom || m === symbole);
-
-// 1 h 19 min, 45 min, 1 j 2 h
-function formaterDuree(minutes) {
-  if (!minutes || minutes < 0) return '';
-  if (minutes < 1) return `${Math.round(minutes * 60)} s`;
-  let reste = Math.round(minutes);
-  const jours = Math.floor(reste / 1440);
-  reste -= jours * 1440;
-  const heures = Math.floor(reste / 60);
-  reste -= heures * 60;
-  const morceaux = [];
-  if (jours) morceaux.push(`${jours} j`);
-  if (heures) morceaux.push(`${heures} h`);
-  if (reste) morceaux.push(`${reste} min`);
-  return morceaux.join(' ');
-}
-
-// Anticipation d'une section (~{-1d}) : "la veille", "2 jours avant", "3 h avant".
-function formaterAnticipation(minutes) {
-  const m = Math.abs(minutes);
-  if (m === 1440) return 'la veille';
-  if (m % 1440 === 0) return `${m / 1440} jours avant`;
-  return `${formaterDuree(m)} avant`;
-}
-
-// ------------------------------------------------------------ quantites
-
-// Ramene les differentes formes de quantite produites par Gram a
-// { min, max?, unite } (valeur numerique, donc ajustable) ou { texte, unite }.
-function lireQuantite(qte, unite) {
-  if (qte === undefined || qte === null || qte === '') return null;
-  if (typeof qte === 'number') return { min: qte, unite };
-  if (typeof qte === 'string') {
-    const n = Number(qte.replace(',', '.'));
-    return Number.isFinite(n) ? { min: n, unite } : { texte: qte, unite };
-  }
-  switch (qte.type) {
-    case 'single':
-    case 'fraction':
-      return { min: qte.value, unite };
-    case 'range':
-      return { min: qte.range.min, max: qte.range.max, unite };
-    case 'RelativeQuantity':
-      return { texte: `${formaterNombre(qte.percent)} % de ${qte.target}` };
-    case 'TextQuantity':
-      return { texte: qte.value, unite };
-    default:
-      return qte.text ? { texte: qte.text, unite } : null;
-  }
-}
-
-function htmlQuantite(q, { fixe = false, entier = false } = {}) {
-  if (!q) return '';
-  if (q.texte !== undefined) {
-    return `<span class="qte">${esc(q.texte)}${q.unite ? ` ${esc(q.unite)}` : ''}</span>`;
-  }
-  const attributs = [`data-u="${esc(q.unite ?? '')}"`];
-  if (q.max !== undefined && q.max !== q.min) attributs.push(`data-min="${q.min}"`, `data-max="${q.max}"`);
-  else attributs.push(`data-v="${q.min}"`);
-  if (fixe) attributs.push('data-fixe');
-  if (entier) attributs.push('data-entier');
-  return `<span class="qte" ${attributs.join(' ')}>${esc(formaterQuantite(q.min, q.max, q.unite))}</span>`;
-}
-
-// "70% of farine T65" (quantite relative non resolue) -> "70 % de farine T65"
-const traduireFormule = (f) => f.replace(/(\d+(?:[.,]\d+)?)\s*% of /g, '$1 % de ');
 
 // ------------------------------------------------------------- rendu HTML
 
@@ -310,7 +236,18 @@ class Rendu {
   ingredients() {
     const items = this.r.shopping_list.filter((i) => !aModificateur(i, 'hidden', '-'));
     if (!items.length) return '';
-    const lignes = items.map((i) => `  <li><label><input type="checkbox"> ${this.elementCourses(i)}</label></li>`);
+    const lignes = items.map((i) => {
+      // Sur la page d'une variante : ce qui change par rapport a l'originale.
+      const marque = this.ctx.marques?.get(cleIngredient(i));
+      const classe = marque ? ` class="ing-${marque.type}"` : '';
+      const note =
+        marque?.type === 'ajoute'
+          ? ' <span class="badge-nouveau">nouveau</span>'
+          : marque?.avantHtml
+            ? ` <span class="avant">(avant : ${marque.avantHtml})</span>`
+            : '';
+      return `  <li${classe}><label><input type="checkbox"> ${this.elementCourses(i)}${note}</label></li>`;
+    });
     return `<h2 id="${this.id('ingredients')}">Ingrédients</h2>\n<ul class="liste-ingredients">\n${lignes.join('\n')}\n</ul>`;
   }
 
@@ -411,14 +348,24 @@ class Rendu {
     );
   }
 
+  // Blocs propres aux variantes (ctx.bandeau, ctx.changements, ctx.versions) ;
+  // chacun est un texte ou une fonction qui recoit l'id de son titre.
+  bloc(contenu, nomId) {
+    return typeof contenu === 'function' ? contenu(this.id(nomId)) : (contenu ?? '');
+  }
+
   page() {
+    const ctx = this.ctx;
     return [
       '<div class="recette-gram">',
+      ctx.bandeau,
       this.fiche(),
+      this.bloc(ctx.changements, 'changements'),
       this.ingredients(),
       this.materiel(),
       this.preparation(),
       this.notes(),
+      this.bloc(ctx.versions, 'versions'),
       this.sourceGram(),
       '</div>'
     ]
@@ -508,11 +455,13 @@ function descriptionDe(r) {
   return `${debut ? `${debut.replace(/ /g, ' ')} : ` : ''}${liste}`;
 }
 
-function enteteJekyll(r, { fichierRelatif, categorieParDefaut }) {
+// Donnees du front matter Jekyll d'une recette. `surcharge` remplace des champs
+// (utilise par les variantes).
+function donneesEntete(r, { fichierRelatif, categorieParDefaut, date }) {
   const { meta } = r;
   const entete = {
     title: String(meta.title ?? r.title ?? path.basename(fichierRelatif, '.gram')),
-    date: dateDe(meta, fichierRelatif),
+    date: date ?? dateDe(meta, fichierRelatif),
     categories: enListe(meta.category).map(String),
     tags: enListe(meta.tags).map((t) => String(t).toLowerCase()),
     description: descriptionDe(r)
@@ -529,25 +478,29 @@ function enteteJekyll(r, { fichierRelatif, categorieParDefaut }) {
   // Le HTML genere ne contient pas de Liquid : on evite qu'un {{ ou {% dans
   // une recette soit interprete par Jekyll.
   entete.render_with_liquid = false;
-  return `---\n${YAML.stringify(entete, { version: '1.1', lineWidth: 0 })}---\n`;
+  return entete;
+}
+
+const enteteJekyll = (entete) => `---\n${YAML.stringify(entete, { version: '1.1', lineWidth: 0 })}---\n`;
+
+const categorieParDefaut = (rec) => (rec.relatif.includes('/bases/') ? 'Bases' : 'Recettes');
+
+// ------------------------------------------------------------- variantes
+
+const texte = (v) => (v === undefined || v === null ? '' : String(v).trim());
+
+const titreDe = (rec) => String(rec.r.meta.title ?? rec.r.title ?? path.basename(rec.relatif, '.gram'));
+
+// Nom court d'une variante : « moins de sucre ». Vient de `variante:` ; a defaut,
+// de ce qui suit `--` dans le nom du fichier (crepes--moins-de-sucre.gram).
+function nomVariante(rec) {
+  const declare = texte(rec.r.meta.variante);
+  if (declare) return declare;
+  const apres = path.basename(rec.relatif, '.gram').split('--').slice(1).join(' ').replace(/-/g, ' ').trim();
+  return apres || titreDe(rec);
 }
 
 // ------------------------------------------------------------- principal
-
-function lireEntete(source) {
-  const entete = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source);
-  if (!entete) return {};
-  try {
-    return YAML.parse(entete[1]) ?? {};
-  } catch {
-    return {};
-  }
-}
-
-async function lireYaml(fichier) {
-  if (!existsSync(fichier)) return {};
-  return YAML.parse(await readFile(fichier, 'utf8')) ?? {};
-}
 
 async function main() {
   const configGram = await lireYaml(path.join(RACINE, '.gram', 'config.yaml'));
@@ -562,7 +515,8 @@ async function main() {
     .sort();
 
   // Premier passage : compiler toutes les recettes.
-  const recettes = [];
+  let recettes = [];
+  const nonPubliees = new Set();
   let erreurs = 0;
   for (const fichier of fichiers) {
     const relatif = path.relative(RACINE, fichier).split(path.sep).join('/');
@@ -577,7 +531,13 @@ async function main() {
     const r = resultat.analyzed ? resultat.analyzed.result : resultat.compiled;
     // Le lecteur d'en-tete de Gram est minimal (il garde par exemple les ''
     // des chaines YAML) : on relit l'en-tete avec un vrai parseur YAML.
-    r.meta = { ...r.meta, ...lireEntete(resultat.content) };
+    try {
+      r.meta = { ...r.meta, ...lireEntete(resultat.content) };
+    } catch (err) {
+      console.error(`✗ ${relatif}\n    ${err.message}`);
+      erreurs++;
+      continue;
+    }
     const problemes = r.warnings.filter((w) => !CODES_BASE_INGREDIENTS.has(w.code));
     const bloquants = problemes.filter((w) => warningSeverityOf(w.code) === 'error');
     erreurs += bloquants.length;
@@ -586,8 +546,19 @@ async function main() {
       const ligne = w.loc ? `ligne ${resultat.content.slice(0, w.loc.start).split('\n').length} : ` : '';
       console.log(`    ${GRAVITES[warningSeverityOf(w.code)] ?? 'attention'} ${w.code} — ${ligne}${w.message}`);
     }
-    if (r.meta.publier === false || r.meta.publier === 'false') continue;
-    recettes.push({ fichier, relatif, r, contenu: resultat.content, slug: slug(path.basename(fichier, '.gram')) });
+    const rec = {
+      fichier,
+      relatif,
+      r,
+      contenu: resultat.content,
+      slug: slug(path.basename(fichier, '.gram')),
+      parent: r.meta.variante_de ? slug(String(r.meta.variante_de)) : null
+    };
+    if (r.meta.publier === false || r.meta.publier === 'false') {
+      nonPubliees.add(rec.slug);
+      continue;
+    }
+    recettes.push(rec);
   }
 
   const parSlug = new Map();
@@ -598,34 +569,134 @@ async function main() {
     }
     parSlug.set(rec.slug, rec);
   }
-  const urlParFichier = new Map(recettes.map((rec) => [rec.fichier, `${baseurl}/posts/${rec.slug}/`]));
+
+  // Les variantes : chacune doit se rattacher a une recette d'origine.
+  const ignorees = new Set();
+  for (const rec of recettes.filter((x) => x.parent)) {
+    const statut = normaliserStatut(rec.r.meta.statut);
+    if (!statut) {
+      console.error(`✗ ${rec.relatif} : le statut « ${rec.r.meta.statut} » n'existe pas (essai, retenue ou ecartee).`);
+      erreurs++;
+    }
+    rec.statut = statut ?? 'essai';
+    const origine = parSlug.get(rec.parent);
+    if (rec.parent === rec.slug) {
+      console.error(`✗ ${rec.relatif} : une recette ne peut pas être sa propre variante (variante_de: ${rec.r.meta.variante_de}).`);
+      erreurs++;
+    } else if (!origine && nonPubliees.has(rec.parent)) {
+      console.log(`  ↳ ${rec.relatif} : variante d'une recette non publiée (publier: false), ignorée.`);
+      ignorees.add(rec);
+    } else if (!origine) {
+      console.error(
+        `✗ ${rec.relatif} : variante_de « ${rec.r.meta.variante_de} » ne correspond à aucune recette. ` +
+          `Indiquez le nom du fichier sans .gram, par exemple « crepes ».`
+      );
+      erreurs++;
+    } else if (origine.parent) {
+      console.error(
+        `✗ ${rec.relatif} : « ${rec.r.meta.variante_de} » est elle-même une variante. ` +
+          `Rattachez celle-ci à la recette d'origine : variante_de: ${origine.parent}.`
+      );
+      erreurs++;
+    }
+  }
+  recettes = recettes.filter((rec) => !ignorees.has(rec));
 
   if (erreurs) {
     console.error(`\n${erreurs} erreur(s) : corrigez les recettes ci-dessus.`);
     process.exit(1);
   }
+  const nbVariantes = recettes.filter((rec) => rec.parent).length;
+  const resume = `${recettes.length - nbVariantes} recette(s)${nbVariantes ? ` et ${nbVariantes} variante(s)` : ''}`;
   if (VERIFIER_SEULEMENT) {
-    console.log(`\n${recettes.length} recette(s) valide(s).`);
+    console.log(`\n${resume} valide(s).`);
     return;
   }
 
-  // Second passage : ecrire les articles.
-  await rm(DOSSIER_POSTS, { recursive: true, force: true });
-  await mkdir(DOSSIER_POSTS, { recursive: true });
-  for (const rec of recettes) {
-    const entete = enteteJekyll(rec.r, {
-      fichierRelatif: rec.relatif,
-      categorieParDefaut: rec.relatif.includes('/bases/') ? 'Bases' : 'Recettes'
-    });
-    const corps = new Rendu(rec.r, {
-      chemin: rec.relatif,
-      contenu: rec.contenu,
-      urlDe: (uri) => urlParFichier.get(uri)
-    }).page();
-    const date = /date: "?(\d{4}-\d{2}-\d{2})/.exec(entete)[1];
-    await writeFile(path.join(DOSSIER_POSTS, `${date}-${rec.slug}.html`), `${entete}\n${corps}\n`);
+  // Adresse de chaque page : /posts/<recette>/ ou /variantes/<variante>/.
+  const urlParFichier = new Map(
+    recettes.map((rec) => [rec.fichier, `${baseurl}/${rec.parent ? 'variantes' : 'posts'}/${rec.slug}/`])
+  );
+  for (const rec of recettes) rec.date = dateDe(rec.r.meta, rec.relatif);
+
+  // « Version » : ce que le module variantes.mjs sait comparer et afficher.
+  const versionDe = (rec, origine) => ({
+    slug: rec.slug,
+    relatif: rec.relatif,
+    r: rec.r,
+    url: urlParFichier.get(rec.fichier),
+    statut: rec.statut ?? 'essai',
+    objectif: texte(rec.r.meta.objectif),
+    verdict: texte(rec.r.meta.verdict),
+    nom: origine ? nomVariante(rec) : 'Originale',
+    titre: origine && (!rec.r.meta.title || titreDe(rec) === titreDe(origine)) ? `${titreDe(origine)} — ${nomVariante(rec)}` : titreDe(rec)
+  });
+
+  const variantesDe = new Map();
+  for (const rec of recettes.filter((x) => x.parent)) {
+    const liste = variantesDe.get(rec.parent) ?? [];
+    liste.push(rec);
+    variantesDe.set(rec.parent, liste);
   }
-  console.log(`\n${recettes.length} recette(s) écrite(s) dans _posts/gram/.`);
+  for (const liste of variantesDe.values()) {
+    liste.sort((a, b) => String(a.date).localeCompare(String(b.date)) || a.relatif.localeCompare(b.relatif));
+  }
+
+  // Second passage : ecrire les pages.
+  await rm(DOSSIER_POSTS, { recursive: true, force: true });
+  await rm(DOSSIER_VARIANTES, { recursive: true, force: true });
+  await mkdir(DOSSIER_POSTS, { recursive: true });
+  if (nbVariantes) await mkdir(DOSSIER_VARIANTES, { recursive: true });
+
+  for (const rec of recettes) {
+    const optionsEntete = { fichierRelatif: rec.relatif, categorieParDefaut: categorieParDefaut(rec), date: rec.date };
+    const contexte = { chemin: rec.relatif, contenu: rec.contenu, urlDe: (uri) => urlParFichier.get(uri) };
+    const entete = donneesEntete(rec.r, optionsEntete);
+
+    if (!rec.parent) {
+      // Recette d'origine : elle annonce ses variantes.
+      const variantes = (variantesDe.get(rec.slug) ?? []).map((v) => versionDe(v, rec));
+      if (variantes.length) {
+        const origine = versionDe(rec, null);
+        contexte.bandeau = bandeauRetenue(variantes);
+        contexte.versions = (idTitre) => blocVersions({ racine: origine, variantes, courant: null, idTitre });
+      }
+      const corps = new Rendu(rec.r, contexte).page();
+      await writeFile(path.join(DOSSIER_POSTS, `${rec.date.slice(0, 10)}-${rec.slug}.html`), `${enteteJekyll(entete)}\n${corps}\n`);
+      continue;
+    }
+
+    // Variante : elle montre ce qu'elle change et se compare aux autres.
+    const racine = parSlug.get(rec.parent);
+    const origine = versionDe(racine, null);
+    const variantes = variantesDe.get(racine.slug).map((v) => versionDe(v, racine));
+    const moi = variantes.find((v) => v.slug === rec.slug);
+    const diff = differences(origine, moi);
+    contexte.bandeau = bandeauVariante(moi, origine);
+    contexte.changements = (idTitre) => blocChangements(diff, origine, idTitre, rec.relatif);
+    contexte.versions = (idTitre) => blocVersions({ racine: origine, variantes, courant: moi, idTitre });
+    contexte.marques = diff.marques;
+
+    // Meme categories et memes etiquettes que la recette d'origine : la page
+    // n'est pas dans les listes du site, mais ses liens doivent mener quelque part.
+    const entetesOrigine = donneesEntete(racine.r, {
+      fichierRelatif: racine.relatif,
+      categorieParDefaut: categorieParDefaut(racine),
+      date: racine.date
+    });
+    Object.assign(entete, {
+      title: moi.titre,
+      categories: entetesOrigine.categories,
+      tags: entetesOrigine.tags,
+      description: rec.r.meta.description ? String(rec.r.meta.description) : moi.objectif || descriptionVariante(origine, diff),
+      variante_de: racine.slug
+    });
+    delete entete.pin;
+
+    const corps = new Rendu(rec.r, contexte).page();
+    await writeFile(path.join(DOSSIER_VARIANTES, `${rec.slug}.html`), `${enteteJekyll(entete)}\n${corps}\n`);
+  }
+  console.log(`\n${resume} écrite(s) dans _posts/gram/${nbVariantes ? ' et _variantes/' : ''}.`);
 }
 
 await main();
