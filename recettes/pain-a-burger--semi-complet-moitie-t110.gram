@@ -4,32 +4,33 @@ date: 2026-10-07
 variante_de: pain-a-burger
 variante: "semi-complet (moitié T110)"
 statut: essai    # essai, retenue ou ecartee
-objectif: "Des buns semi-complets : la moitié de la farine remplacée par de la T110, avec une autolyse"    # ce que vous cherchez à tester
+objectif: "Des buns semi-complets plus légers : la moitié de la farine en T110, une hydratation autour de 68 %, moins de beurre, un jaune d’œuf dans la pâte et des pâtons bien aplatis"    # ce que vous cherchez à tester
 verdict: ""    # après dégustation : ce que ça a donné
 category: 'Pains'
 tags: ['pain', 'burger', 'boulange']
 makes: '3 buns'
 ---
 
-
 ## Pâte ->&pâte{}
 
-[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{100 g}, la @farine T110{100 g} et le @lait demi-écrémé{120 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son se ramollit et abîme moins le réseau de gluten.
+[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{100 g}, la @farine T110{100 g} et le @lait demi-écrémé{135-140 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir et laisser reposer ~_autolyse{30min} : le son de la T110 gonfle et abîme moins le réseau de gluten.
 
-[Pétrir] Émietter la @levure boulangère fraîche{7 g} sur la pâte, ajouter le @sucre{10 g} et le @sel fin{4 g} (sans mettre le sel au contact direct de la levure). Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à ce que la pâte soit lisse et élastique.
+[Pétrir] Émietter la @levure boulangère fraîche{6-7 g} sur la pâte, ajouter le @sucre{12 g}, le @sel fin{4 g} et, si vous aimez, 1 petit @?jaune d'œuf{1}, qui apporte du liant et du fondant. Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à obtenir une pâte bien agglomérée et élastique.
 
-[Beurrer] Ajouter petit à petit le @beurre doux{50 g}(bien ramolli, en dés) en continuant de pétrir ~{10-12min}, jusqu'à ce que la pâte l'absorbe, se décolle des parois et passe le test de la membrane (elle s'étire finement sans se déchirer tout de suite).
+[Beurrer] Ajouter le @beurre doux{25 g}(mou, en dés) et pétrir ~{5-6min}, jusqu'à absorption complète. La pâte doit être très douce, légèrement collante, mais se décoller du bol.
 
 [Pointer] Former une boule, la mettre dans un #saladier{}, couvrir et laisser doubler de volume à température ambiante ~_pointage{60min}.
 
 ## Façonnage et cuisson
 
-[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 3 pâtons d’environ 130 g. Rouler chaque pâton en boule serrée, puis les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et les aplatir à la paume jusqu'à environ 9 cm.
+[Façonner] Dégazer la &pâte{} sur un plan de travail légèrement fariné (@&farine T55{}) et la diviser en 3 pâtons d'environ 130 g. Les rouler en boule très serrée, les poser sur une #plaque de cuisson{} garnie de papier sulfurisé et appuyer fermement avec la paume pour les aplatir à 1,5 cm d'épaisseur : la T110 monte plus en dôme qu'en largeur, des pâtons mal aplatis donnent des « balles de tennis » impossibles à croquer.
 
-[Apprêter] Couvrir et laisser lever ~_apprêt{45-60min}, jusqu'à ce que les buns aient presque doublé de volume.
+[Apprêter] Couvrir d'un #linge propre{} et laisser lever ~_apprêt{45-60min}, jusqu'à ce que les buns soient bien gonflés et moelleux au toucher.
 
-[Dorer] Préchauffer le #four à ^four{180 °C}. Badigeonner les buns de @jaune d'œuf{1}(battu) allongé d'un peu de @&lait demi-écrémé{10 g}, puis parsemer, si vous aimez, de @?graines de sésame{1 c.à.s}.
+[Dorer] Préchauffer le #four à ^four{190 °C}. Badigeonner les buns d'un mélange d'@œuf{1}(entier, battu) et de @&lait demi-écrémé{15 g}, puis parsemer, si vous aimez, de @?graines de sésame{1 c.à.s}.
 
-[Cuire] Enfourner ~_four{15-18min}, jusqu'à ce que les buns soient bien dorés.
+[Cuire] Enfourner ~_four{12-14min} : une cuisson un peu plus chaude et plus courte évite de dessécher le pain.
+
+[Assouplir] Dès la sortie du four, couvrir immédiatement les buns d'un #&linge propre{} légèrement humide (ou du dos d'un saladier) ~_vapeur{5-10min} : la vapeur piégée assouplit la croûte.
 
 [Refroidir] Laisser refroidir complètement sur une #grille{} avant de les couper en deux.
