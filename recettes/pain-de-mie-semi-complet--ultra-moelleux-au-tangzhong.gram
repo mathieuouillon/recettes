@@ -1,0 +1,37 @@
+---
+title: "Pain de mie semi-complet — ultra-moelleux au tangzhong"
+date: 2026-10-07
+variante_de: pain-de-mie-semi-complet
+variante: "ultra-moelleux au tangzhong"
+statut: essai    # essai, retenue ou ecartee
+objectif: "Une mie encore plus moelleuse, façon shokupan : farine T45 seule, tout au lait, tangzhong, 80 g de beurre et un jaune d'œuf"    # ce que vous cherchez à tester
+verdict: ""    # après dégustation : ce que ça a donné
+category: 'Pains'
+tags: ['pain', 'pain de mie', 'boulange']
+makes: '1 pain de mie de 30 cm'
+notes: "Le beurre représente ici 10 % du poids de farine. Ajouté trop tôt, ou en excès (au-delà de 15 % environ), il empêche le gluten de se former : la pâte se déchire et la mie devient friable. La T110 demande plus d’eau (ici 67 % d’hydratation) : si la mie s’effrite à la coupe, augmentez le liquide."
+---
+
+## Tangzhong ->&tangzhong{}
+
+[Cuire] Dans une #casserole{}, fouetter à froid la @farine T45{40 g} et le @lait demi-écrémé{200 g}. Chauffer à ^{feu doux} en remuant sans cesse jusqu'à ce que le mélange épaississe, comme une crème pâtissière (environ 65 °C).
+
+[Tiédir] Retirer du feu et laisser tiédir ~_tiédir{10-15min}.
+
+## Pâte ->&pâte{}
+
+[Pétrir] Dans le bol du #robot pétrisseur{}, mettre la @farine T45{560 g}, le &tangzhong{} tiédi, le @&lait demi-écrémé{180 g}(tiède), le @?jaune d'œuf{1}, le @sucre{30 g}, le @sel fin{12 g} et la @levure boulangère fraîche{20 g}(émiettée). Pétrir à vitesse lente à moyenne ~{7-8min}.
+
+[Beurrer] Ajouter le @beurre doux{80 g}(mou, en dés) et pétrir ~{8-10min}, jusqu'à ce que la pâte soit extrêmement lisse, brillante et élastique : le test de la membrane doit être parfait.
+
+[Pointer] Former une boule, la mettre dans un #saladier{}, couvrir et laisser doubler de volume dans un endroit tiède ~_pointage{60min}.
+
+## Façonnage et cuisson
+
+[Façonner] Dégazer la &pâte{} et la diviser en 3 pâtons égaux. Étaler chaque pâton en un ovale allongé, rabattre le tiers gauche puis le tiers droit vers le centre comme une lettre, puis rouler serré de bas en haut pour former 3 petits rouleaux.
+
+[Apprêter] Beurrer le #moule à pain de mie fermé{}(30 cm) avec du @&beurre doux{}, y placer les 3 rouleaux côte à côte et laisser lever moule ouvert jusqu'à 1,5 cm du bord ~_apprêt{45-60min}.
+
+[Cuire] Préchauffer le #four à ^four{180 °C}. Fermer le moule avec son couvercle et enfourner ~_four{35min}.
+
+[Démouler] Démouler immédiatement sur une #grille{} et laisser refroidir complètement avant de trancher.

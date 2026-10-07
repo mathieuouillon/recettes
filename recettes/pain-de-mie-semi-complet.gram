@@ -1,0 +1,29 @@
+---
+title: 'Pain de mie semi-complet'
+description: "Un pain de mie moelleux à la farine T55 et T110 (60/40), cuit en moule fermé. L’autolyse assouplit le son, et le beurre n’entre dans la pâte qu’une fois le gluten développé."
+category: 'Pains'
+tags: ['pain', 'pain de mie', 'boulange']
+makes: '1 pain de mie de 30 cm'
+date: 2026-10-07
+notes: "Le beurre représente ici 10 % du poids de farine. Ajouté trop tôt, ou en excès (au-delà de 15 % environ), il empêche le gluten de se former : la pâte se déchire et la mie devient friable. La T110 demande plus d’eau (ici 67 % d’hydratation) : si la mie s’effrite à la coupe, augmentez le liquide."
+---
+
+## Pâte ->&pâte{}
+
+[Autolyser] Dans le bol du #robot pétrisseur{}, mélanger la @farine T55{360 g}, la @farine T110{240 g}, l'@eau{150 g}(tiède, environ 25 °C) et le @lait demi-écrémé{250 g}(tiède, environ 25 °C) jusqu'à ce qu'il ne reste plus de farine sèche. Couvrir d'un linge et laisser reposer ~_autolyse{30min}.
+
+[Pétrir] Émietter la @levure boulangère fraîche{20 g} sur la pâte, ajouter le @sucre{30 g} et le @sel fin{12 g} (sans mettre le sel au contact direct de la levure). Pétrir à vitesse lente à moyenne ~{7-8min}, jusqu'à ce que la pâte soit lisse et élastique.
+
+[Beurrer] Ajouter petit à petit le @beurre doux{60 g}(bien ramolli, en dés) en continuant de pétrir ~{5-8min}, jusqu'à ce que la pâte l'absorbe, se décolle des parois et passe le test de la membrane (elle s'étire finement sans se déchirer tout de suite).
+
+[Pointer] Former une boule, la mettre dans un #saladier{}, couvrir et laisser doubler de volume à température ambiante ~_pointage{60min}.
+
+## Façonnage et cuisson
+
+[Façonner] Dégazer la &pâte{} en appuyant doucement avec la paume des mains sur un plan de travail légèrement fariné (@&farine T55{}). L'étaler en un rectangle de la longueur du moule, puis la rouler très serré pour former un boudin régulier.
+
+[Apprêter] Beurrer généreusement l'intérieur du #moule à pain de mie fermé{}(30 cm) et de son couvercle avec du @&beurre doux{}. Y placer le boudin, soudure en dessous, et laisser lever moule ouvert jusqu'à 1,5 à 2 cm du bord ~_apprêt{45-60min}.
+
+[Cuire] Préchauffer le #four à ^four{180 °C}. Fermer le moule avec son couvercle et enfourner ~_four{35-40min}.
+
+[Démouler] Démouler immédiatement sur une #grille{} (la condensation ramollirait la croûte), puis laisser refroidir complètement avant de trancher.
